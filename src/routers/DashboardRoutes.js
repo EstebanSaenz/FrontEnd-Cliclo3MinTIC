@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Home } from '../components/Home';
-import { Header } from '../components/Header';
-import { Users } from '../components/Users';
+import { Home } from 'pages/Home';
+import { Header } from 'components/Header';
+import { Users } from 'pages/Users';
 
 export const DashboardRoutes = () => {
     return (

@@ -2,10 +2,10 @@ import React from 'react'
  export const Users= () => {
 
     const usuarios = [{id: 1,Nombre:'Daniel',Apellido: 'Zemanate', Edad: 26},
-                  {id:2,Nombre:'Valery',Apellido: 'Rivera', Edad: 22},
-                  {id:3,Nombre:'Candy',Apellido: 'Rivera', Edad: 17},
-                  {id:4,Nombre:'Anderson',Apellido: 'Trujillo', Edad: 32},
-                  {id:5,Nombre:'Juliana',Apellido: 'Lopez', Edad: 67}, ];
+                    {id:2,Nombre:'Valery',Apellido: 'Rivera', Edad: 22},
+                    {id:3,Nombre:'Candy',Apellido: 'Rivera', Edad: 17},
+                    {id:4,Nombre:'Anderson',Apellido: 'Trujillo', Edad: 32},
+                    {id:5,Nombre:'Juliana',Apellido: 'Lopez', Edad: 67}, ];
 
      //   MAPEO PARA AGREGAR NUMERO A CADA USUARIO
     usuarios.map( (users,index) => {
