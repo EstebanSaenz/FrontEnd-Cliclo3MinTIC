@@ -1,28 +1,80 @@
-.botonGenerico {
-    border: 0px;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-weight: bolder;
-  }
-  .botonGenerico:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
-  
-  .mainButton {
-    background-color: #1bb76e;
-    color: white;
-  }
-  
-  .mainButton:hover {
-    box-shadow: 1px 1px green;
-  }
-  
-  .secondaryButton {
-    background-color: #66d8f5;
-    color: white;
-  }
-  
-  .secondaryButton:hover {
-    box-shadow: 1px 1px rgb(119, 229, 233);
-  }
+body, html {
+  height: 100%;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  width: 375px;
+  padding: 40px;
+  background: #fff;
+  text-align: center;
+}
+
+.form-title {
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form-box input[type="text"], .form-box input[type="password"], .form-box button[type="submit"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #6c25bd85;
+  padding: 14px 10px;
+  width: 325px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.form-box input[type="text"]:focus, .form-box input[type="password"]:focus {
+  width: 340px;
+  border-color: #6c25bd85;
+}
+
+.form-box button {
+  border: 0;
+  background: #d0d0d1;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #6c25bd85;
+  padding: 14px 40px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 250px;
+}
+
+.form-box button[type="submit"]:hover {
+  background: none;
+}
+
+.regbtn {
+  text-align: left;
+  color: #354;
+  background: none;
+  cursor: pointer;
+  border: none
+}
+
+.titulo {
+  color:#000;
+}
