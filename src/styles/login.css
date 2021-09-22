@@ -1,0 +1,28 @@
+.botonGenerico {
+    border: 0px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bolder;
+  }
+  .botonGenerico:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+  
+  .mainButton {
+    background-color: #1bb76e;
+    color: white;
+  }
+  
+  .mainButton:hover {
+    box-shadow: 1px 1px green;
+  }
+  
+  .secondaryButton {
+    background-color: #66d8f5;
+    color: white;
+  }
+  
+  .secondaryButton:hover {
+    box-shadow: 1px 1px rgb(119, 229, 233);
+  }
