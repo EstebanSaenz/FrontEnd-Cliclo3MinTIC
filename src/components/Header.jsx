@@ -35,6 +35,7 @@ export class Header extends Component {
                             <ul>
                                 <Link to="/home" className="select"><li>HOME</li></Link>
                                 <Link to="/users" className="link"><li>USERS</li></Link>
+                                <Link to="/products" className="link"><li>PRODUCTS</li></Link>
                                 <Link to="/" className="link"><li>LOGIN</li></Link>
                                 <li>
                                 <button className="btn btn-outline-danger button"onClick= { this.handleLogout }>

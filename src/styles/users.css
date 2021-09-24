@@ -19,4 +19,15 @@
     color: #ed4d2f;
 }
 
+.buttonTable {
+    background-color:#FEBA0B ;
+    color: white;
+    border-radius: 10px;
+}
+
+.buttonTableTrash{
+    background-color:#ed4d2f ;
+    border-radius: 10px;
+}
+
 

@@ -19,7 +19,7 @@ export const FormUsers =() => {
     return (
         <div>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="validationCustom01">
+                <Form.Group className="mb-3" controlId="validationCustom01">
                     <Form.Label>First name</Form.Label>
                     <Form.Control
                         required
@@ -28,8 +28,8 @@ export const FormUsers =() => {
                         defaultValue="Mark"
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group  className="mb-3" controlId="validationCustom02">
+                </Form.Group>
+                <Form.Group  className="mb-3" controlId="validationCustom02">
                     <Form.Label>Last name</Form.Label>
                     <Form.Control
                         required
@@ -38,8 +38,8 @@ export const FormUsers =() => {
                         defaultValue="Otto"
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="validationCustomUsername">
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="validationCustomUsername">
                     <Form.Label>Username</Form.Label>
                     <InputGroup hasValidation>
                         <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
@@ -53,19 +53,19 @@ export const FormUsers =() => {
                         Please choose a username.
                         </Form.Control.Feedback>
                     </InputGroup>
-                    </Form.Group>
-                    <Form.Group  className="mb-3"controlId="validationCustom03">
+                </Form.Group>
+                <Form.Group  className="mb-3"controlId="validationCustom03">
                     <Form.Label>City</Form.Label>
                     <Form.Control type="text" placeholder="City" required />
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid city.
                     </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group  className="mb-3" controlId="validationCustom04">
+                </Form.Group>
+                <Form.Group  className="mb-3" controlId="validationCustom04">
                     <Form.Label>State</Form.Label>
                     <Form.Control type="text" placeholder="State" required />
                     <Form.Control.Feedback type="invalid">
-                        Please provide a valid state.
+                            Please provide a valid state.
                     </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="validationCustom05">
@@ -74,7 +74,7 @@ export const FormUsers =() => {
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid zip.
                     </Form.Control.Feedback>
-                    </Form.Group>
+                </Form.Group>
                 <Button type="submit">Submit form</Button>
             </Form>
         </div>
