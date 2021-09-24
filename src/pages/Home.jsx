@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import '../styles/home.css'
-import borderCollie from '../assets/image/borderCollie.jpeg'
-import rhodesian from '../assets/image/rhodesian.jpeg'
+import computer from 'assets/image/undraw_Code_thinking_re_gka2.svg'
 
 export class Home extends Component {
     render() {
         return (
-            <div className = "Menu">
-                <h1>Razas de Perros</h1>
-                <ul className="breedCardContainer">
-                    <li className="breedCard">
-                        <div className="contenedorImagen">
-                            <img src={borderCollie} alt="Border Collie" />
+            <div className="container__all" id="container_all">
+                <div className="cover">
+
+                    <div className="container__cover">
+
+                        <div className="container__info">
+                            <h1>BUILD YOUR</h1>
+                            <h2>BUSINESS</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus molestias cumque at, impedit eum corrupti libero ipsam placeat, nulla, maiores totam qui ea distinctio. Velit, distinctio. Iste iusto deserunt esse?</p>
+                            <input type="button" value="Get Started"></input>
                         </div>
-                        <span className="breedTitle">Border Collie</span>
-                    </li>
-                    <li className="breedCard">
-                        <div className="contenedorImagen">
-                            <img src={rhodesian} alt="Border Collie" />
+                        <div className="container__vector">
+                            <img src={computer} alt=""></img>
                         </div>
-                        <span className="breedTitle">Rhodesian</span>
-                    </li>
-                </ul>
+                    </div>
+                 </div>
             </div>
         )
     }
