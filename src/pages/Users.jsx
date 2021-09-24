@@ -1,7 +1,9 @@
 import ModalUsers from 'components/ModalUsers';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react'
 import 'styles/users.css'
  export const Users= () => {
+
 
     const usuarios = [{id: 1,Nombre:'Daniel',Apellido: 'Zemanate', Edad: 26},
     {id:2,Nombre:'Valery',Apellido: 'Rivera', Edad: 22},
@@ -45,12 +47,6 @@ import 'styles/users.css'
                                 <i className="fa fa-search"></i></span>
                              </div>
                         </div>
-                        {/* BOTON AGREGAR NUEVO USUARIO */}
-                        {/* <div className="col-md-3">
-                            <button type="button" className="btn btn-primary btn-block"><i className="fa fa-user-plus" data-target="#exampleModalCenter"></i>
-                                Crear nuevo usuario
-                            </button>
-                        </div> */}
                         <div className="col-3 col-md-3 col-sm-2">
                          <ModalUsers></ModalUsers>
                         </div>
@@ -66,10 +62,11 @@ import 'styles/users.css'
                     <thead className="tableStyle">
                         
                         <tr>
-                            <th data-filter-control="select" scope="col">#</th>
-                            <th data-filter-control="select" scope="col">Nombre</th>
-                            <th data-filter-control="select" scope="col">Apellido</th>
-                            <th data-filter-control="select" scope="col">Edad</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Edad</th>
+                            <th colSpan="3">Acciones </th>
                         </tr>
                     </thead>
                         {/* <tbody>
@@ -91,6 +88,21 @@ import 'styles/users.css'
                                 <td >{item.Nombre}</td>
                                 <td>{item.Apellido}</td>
                                 <td>{item.Edad}</td>
+                                <td>
+                                    <button type="button" className="btn buttonTable">
+                                    <i className="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" className="btn buttonTable">
+                                    <i className="fas fa-pencil-alt"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" className="btn buttonTableTrash">
+                                    <i className="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                         </tbody>
