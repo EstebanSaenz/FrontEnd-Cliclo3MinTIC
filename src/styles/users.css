@@ -1,4 +1,4 @@
-.container {
+.containerUser {
     padding: 30px;
 }
 .span {
@@ -28,6 +28,18 @@
 .buttonTableTrash{
     background-color:#ed4d2f ;
     border-radius: 10px;
+}
+
+.thTableId {
+    width: 8%;
+}
+
+.thTable {
+    width: 15%;
+}
+
+.thTableAcciones {
+    text-align:center;
 }
 
 

@@ -1,20 +1,33 @@
-import ModalUsers from 'components/ModalUsers';
+import {ModalUsers} from 'components/ModalUsers';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react'
-import 'styles/users.css'
+import React from 'react';
+import 'styles/users.css';
+
  export const Users= () => {
 
+    const usuarios = [{id: 1,Nombre:'Daniel',Apellido: 'Zemanate', Identificación: 19028753, Rol:"Administrador", Estado:"Autorizado"},
+    {id:2,Nombre:'Valery',Apellido: 'Rivera', Identificación: 12674890, Rol:"Vendedor", Estado:"Pendiente"},
+    {id:3,Nombre:'Candy',Apellido: 'Rivera', Identificación: 172093865, Rol:"Vendedor", Estado:"Rechazado"},
+    {id:4,Nombre:'Anderson',Apellido: 'Trujillo', Identificación: 1098276538, Rol:"Vendedor", Estado:"Autorizado"},
+    {id:5,Nombre:'Juliana',Apellido: 'Lopez', Identificación: 152793087, Rol:"Administrador", Estado:"Rechazado"},
+    {id:6,Nombre:'Daniel',Apellido: 'Zemanate', Identificación: 1061892620, Rol:"Vendedor", Estado:"Pendiente"},
+    {id:7,Nombre:'Valery',Apellido: 'Rivera', Identificación: 107628290, Rol:"Vendedor", Estado:"Rechazado"},
+    {id:8,Nombre:'Candy',Apellido: 'Rivera', Identificación: 102826382, Rol:"Vendedor", Estado:"Pendiente"},
+    {id:9,Nombre:'Anderson',Apellido: 'Trujillo', Identificación: 1092835749, Rol:"Administrador", Estado:"Autorizado"},
+    {id:10,Nombre:'Juliana',Apellido: 'Lopez', Identificación: 1061920273, Rol:"Vendedor", Estado:"Pendiente"}, ];
 
-    const usuarios = [{id: 1,Nombre:'Daniel',Apellido: 'Zemanate', Edad: 26},
-    {id:2,Nombre:'Valery',Apellido: 'Rivera', Edad: 22},
-    {id:3,Nombre:'Candy',Apellido: 'Rivera', Edad: 17},
-    {id:4,Nombre:'Anderson',Apellido: 'Trujillo', Edad: 32},
-    {id:5,Nombre:'Juliana',Apellido: 'Lopez', Edad: 67},
-    {id:6,Nombre:'Daniel',Apellido: 'Zemanate', Edad: 26},
-    {id:7,Nombre:'Valery',Apellido: 'Rivera', Edad: 22},
-    {id:8,Nombre:'Candy',Apellido: 'Rivera', Edad: 17},
-    {id:9,Nombre:'Anderson',Apellido: 'Trujillo', Edad: 32},
-    {id:10,Nombre:'Juliana',Apellido: 'Lopez', Edad: 67}, ];
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    // const showModal = () => {
+    //     setIsOpen(true);      
+    //   };
+    // const showModal = false;
+
+    const click = () => {
+        setIsOpen(true)
+        // console.log(isOpen)
+    }
+    // const {showModal} = this.props;
 
     // FILTRO BUSQUEDA EN TABLA
     const [searchValue, setSearchValue] = React.useState("");
@@ -22,6 +35,7 @@ import 'styles/users.css'
     const handleChange = event => {
        setSearchValue(event.target.value);
      };
+
 
     const filterNames = ({Nombre}) => {
         return Nombre.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
@@ -34,7 +48,7 @@ import 'styles/users.css'
 
         return (
             <div>
-                <div className="container">
+                <div className="containerUser">
                     <div className="row">
                         <div className="col-9 col-md-9 col-sm-2">
                             <div className="input-group">
@@ -48,7 +62,10 @@ import 'styles/users.css'
                              </div>
                         </div>
                         <div className="col-3 col-md-3 col-sm-2">
-                         <ModalUsers></ModalUsers>
+                        {/* <button type="button" className="btn btn-primary btn-block" onClick={showModal} >
+                <i className="fa fa-user-plus"></i>ADD USER
+            </button> */}
+                            <ModalUsers showModal={isOpen}></ModalUsers>
                         </div>
                         
                 </div>
@@ -60,13 +77,14 @@ import 'styles/users.css'
                  data-filter-control="true" 
                  data-filter-control-container="#filter">
                     <thead className="tableStyle">
-                        
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Edad</th>
-                            <th colSpan="3">Acciones </th>
+                            <th className="thTableId">#</th>
+                            <th className="thTable">Nombre</th>
+                            <th className="thTable">Apellido</th>
+                            <th className="thTable">Identificación</th>
+                            <th className="thTable">Rol</th>
+                            <th className="thTable">Estado</th>
+                            <th className= "thTableAcciones" colSpan="3">Acciones</th>
                         </tr>
                     </thead>
                         {/* <tbody>
@@ -76,7 +94,7 @@ import 'styles/users.css'
                                 <th scope="row">{users.inc}</th>
                                 <td >{users.Nombre}</td>
                                 <td>{users.Apellido}</td>
-                                <td>{users.Edad}</td>
+                                <td>{users.Identificación}</td>
                             </tr>
                                ))
                             }
@@ -87,9 +105,11 @@ import 'styles/users.css'
                                 <th scope="row">{item.inc}</th>
                                 <td >{item.Nombre}</td>
                                 <td>{item.Apellido}</td>
-                                <td>{item.Edad}</td>
+                                <td>{item.Identificación}</td>
+                                <td>{item.Rol}</td>
+                                <td>{item.Estado}</td>
                                 <td>
-                                    <button type="button" className="btn buttonTable">
+                                    <button type="button" className="btn buttonTable" onClick={click}>
                                     <i className="fa fa-eye"></i>
                                     </button>
                                 </td>
@@ -106,7 +126,6 @@ import 'styles/users.css'
                             </tr>
                         ))}
                         </tbody>
-
                 </table>
              </div>   
          </div>
