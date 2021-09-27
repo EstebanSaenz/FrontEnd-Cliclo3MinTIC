@@ -7,79 +7,34 @@ export class Header extends Component {
     handleLogout = () => {
         window.location.href= "./"
     }
-
-    // onScroll = function(){
-
-    //     const scroll = document.documentElement.scrollTop;
-    
-    //     // const header = document.getElementById("header");
-    //     this.header = React.createRef()
-    //     if (scroll > 20){
-    //         this.header.classList.add('nav_mod');
-    //     }else if(scroll < 20){
-    //         this.header.classList.remove('nav_mod');
-    //     }
-    
-    // }
-
-
     render() {
         return (
-            <header className="header" ref={this.header}>
-                <div className="container__header">
-                    <div className="logo">
-                        <img src={logo} alt=""></img>
+            <nav className="navbar navbar-expand-md flex-row flex-wrap navStyle">
+                <div className="container">
+                    <Link to="/home" className="navbar-brand navLink">
+                        <img width="80" src={logo} alt=""></img>
+                    </Link>
+                    <button className="navbar-toggler buttonCollapse" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+                     <i className="fas fa-bars iconCollapse"></i>
+                    </button>
+                    <div className="navbar-collapse collapse" id="collapseExample">
+                        <ul className="navbar-nav ms-md-auto">
+                            <li className="nav-item"><Link to="/home" className="nav-link select">HOME</Link></li>
+                            <li className="nav-item"><Link to="/users" className="nav-link select">USERS</Link></li>
+                            <li className="nav-item"><Link to="/products" className="nav-link select">PRODUCTS</Link></li>
+                            <li className="nav-item"><Link to="/" className="nav-link select">LOGIN</Link></li>
+                            <li className="nav-item"><Link to="/" className="nav-link logout">LOGOUT</Link></li>
+                            {/* <li className="nav-item liButton">
+                            <button className="nav-link btn btn-outline-danger button buttonStyle"onClick= { this.handleLogout }>
+                                <i className="fas fa-sign-out-alt"></i>
+                                <span> LOGOUT</span>
+                            </button>
+                            </li> */}
+                        </ul>
                     </div>
-                    <div className="container__nav">
-                        <nav id="nav">
-                            <ul>
-                                <Link to="/home" className="select"><li>HOME</li></Link>
-                                <Link to="/users" className="link"><li>USERS</li></Link>
-                                <Link to="/products" className="link"><li>PRODUCTS</li></Link>
-                                <Link to="/" className="link"><li>LOGIN</li></Link>
-                                <li>
-                                <button className="btn btn-outline-danger button"onClick= { this.handleLogout }>
-                                    <i className="fas fa-sign-out-alt"></i>
-                                    <span> LOGOUT</span>
-                                </button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
-            // <div>
-            //     <ul className="navbar">
-            //         <li>
-            //             <Link to="/home">
-            //                 <img src={logo} alt="imagen" className="logo" />
-            //             </Link>
-            //         </li>
-            //         <li>
-            //             <button className="botonGenerico mainButton">Nuevo post</button>
-            //         </li>
-            //         <li>
-            //             <div className="buscar">
-            //                 <input placeholder="Buscar una raza" />
-            //                 <i className="fas fa-search botonGenerico iconoBusqueda"></i>
-            //             </div>
-            //         </li>
-            //          <li>
-            //              <Link to="/users">
-            //              <button className="botonGenerico secondaryButton" >Usuarios</button>
-            //              </Link>
-            //         </li>
-            //         <li>
-            //         <button 
-            //             className="btn btn-outline-danger button"
-            //             onClick= { this.handleLogout }
-            //         >
-            //             <i className="fas fa-sign-out-alt"></i>
-            //             <span> Salir</span>
-            //         </button>
-            //         </li>
-            //     </ul>
-            // </div>
+                 </div>
+            </nav>
+
         )
     }
 }

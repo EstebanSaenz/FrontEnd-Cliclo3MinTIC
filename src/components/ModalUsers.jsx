@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Modal, Button} from 'react-bootstrap';
 import { FormUsers } from './FormUsers';
 // import Modal from "react-bootstrap/Modal";
 
-
-export const ModalUsers = () => {
-
+export const ModalUsers = (props) => {
     // FUNCIONES MODAL CREAR USUARIO
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [title, setTitle] = React.useState("Transitioning...");
+    // console.log("props",props);
 
-    const showModal = () => {
-      setIsOpen(true);
+    // const showModalVar = false;
+   const [isOpen,setIsOpen] = useState(false);
+
+    const [title, setTitle] = React.useState("Transitioning...");
+    // const isOpen = props.showModal;
+    // setIsOpen(props.showModal)
+    // console.log('is open', isOpen)
+
+
+    const showModal = (props) => {
+      setIsOpen(true)
     };
   
     const hideModal = () => {
@@ -45,5 +51,19 @@ export const ModalUsers = () => {
         </>
     )
 }
+ 
+//  export default class ModalUsers extends Component {
+//     constructor() {
+//         super();
+//         this.state = {}
+//     }
+//      render() {
+//          return (
+//              <div>
+                 
+//              </div>
+//          )
+//      }
+//  }
+ 
 
-export default ModalUsers
