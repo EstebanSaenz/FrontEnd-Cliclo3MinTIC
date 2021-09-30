@@ -17,65 +17,63 @@ export const FormUsers =() => {
         setValidated(true);
       };
     return (
-        <div>
+        <div className="col-8 col-md-8 col-lg-8">
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="validationCustom01">
-                    <Form.Label>First name</Form.Label>
+                    <Form.Label>Nombre</Form.Label>
                     <Form.Control
                         required
                         type="text"
-                        placeholder="First name"
-                        defaultValue="Mark"
+                        placeholder="Nombre"
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                        Introduzca un Nombre.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group  className="mb-3" controlId="validationCustom02">
-                    <Form.Label>Last name</Form.Label>
+                    <Form.Label>Apellido</Form.Label>
                     <Form.Control
                         required
                         type="text"
-                        placeholder="Last name"
-                        defaultValue="Otto"
+                        placeholder="Apellido"
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                        Introduzca un Apellido.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="validationCustomUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Identificación</Form.Label>
                     <InputGroup hasValidation>
-                        <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                         <Form.Control
-                        type="text"
-                        placeholder="Username"
-                        aria-describedby="inputGroupPrepend"
+                        type="number"
+                        placeholder="Identificación"
                         required
                         />
+                        <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                        Please choose a username.
+                        Introduzca una Identificación.
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
                 <Form.Group  className="mb-3"controlId="validationCustom03">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control type="text" placeholder="City" required />
+                    <Form.Label>Rol</Form.Label>
+                    <Form.Control type="text" placeholder="Rol" required />
+                    <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">
-                        Please provide a valid city.
+                        Introduzca un Rol.
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group  className="mb-3" controlId="validationCustom04">
-                    <Form.Label>State</Form.Label>
-                    <Form.Control type="text" placeholder="State" required />
+                    <Form.Label>Estado</Form.Label>
+                    <Form.Control type="text" placeholder="Estado" required />
+                    <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">
-                            Please provide a valid state.
+                            Introduzca un Estado para el Usuario.
                     </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="validationCustom05">
-                    <Form.Label>Zip</Form.Label>
-                    <Form.Control type="text" placeholder="Zip" required />
-                    <Form.Control.Feedback type="invalid">
-                        Please provide a valid zip.
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Button type="submit">Submit form</Button>
+                <Button type="submit">Guardar</Button>
             </Form>
         </div>
     )
