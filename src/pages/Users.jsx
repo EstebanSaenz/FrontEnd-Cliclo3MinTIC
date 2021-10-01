@@ -46,9 +46,9 @@ import 'styles/users.css';
                     <div className="row">
                         <div className="px-5 col-3 col-md-3">
                             <button type="button" className="btn btn-primary btn-block"
-                            onClick={()=> {
-                                setMostrarTabla(!mostrarTabla);
-                            }} >
+                                onClick={()=> {
+                                    setMostrarTabla(!mostrarTabla);
+                                }} >
                                 <i className={iconButton}></i>{textButton}
                             </button>
                         </div>
