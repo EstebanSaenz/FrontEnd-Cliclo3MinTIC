@@ -1,80 +1,77 @@
-body, html {
-  height: 100%;
+.divPadre {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
 }
 
-.container {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: #fff;
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contlog {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+  max-width: 25rem;
+  width: 100%;
+}
+
+.interdiv {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-.form-box {
-  width: 375px;
-  padding: 40px;
-  background: #fff;
+.interspan {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.interH {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
-.form-title {
-  color: #000;
-  text-transform: uppercase;
-  font-weight: 500;
+.googlediv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 25rem;
+  width: 100%;
 }
 
-.form-box input[type="text"], .form-box input[type="password"], .form-box button[type="submit"] {
-  border: 0;
-  background: none;
-  display: block;
-  margin: 20px auto;
-  text-align: center;
-  border: 2px solid #6c25bd85;
-  padding: 14px 10px;
-  width: 325px;
-  outline: none;
-  color: black;
-  border-radius: 24px;
-  transition: 0.25s;
+.gglindiv {
+  display:flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.form-box input[type="text"]:focus, .form-box input[type="password"]:focus {
-  width: 340px;
-  border-color: #6c25bd85;
+.gglspan {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-.form-box button {
-  border: 0;
-  background: #d0d0d1;
-  display: block;
-  margin: 20px auto;
-  text-align: center;
-  border: 2px solid #6c25bd85;
-  padding: 14px 40px;
-  outline: none;
-  color: black;
-  border-radius: 24px;
-  transition: 0.25s;
-  cursor: pointer;
-  width: 250px;
+.googleimg {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
-.form-box button[type="submit"]:hover {
-  background: none;
-}
-
-.regbtn {
-  text-align: left;
-  color: #354;
-  background: none;
-  cursor: pointer;
-  border: none
-}
-
-.titulo {
-  color:#000;
+.googlebtn {
+  border-radius: 5%;
+  height: 2.5rem;
+  background-color: #d82e1094;
 }
