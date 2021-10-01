@@ -21,6 +21,7 @@ export class Header extends Component {
                         <ul className="navbar-nav ms-md-auto">
                             <li className="nav-item"><Link to="/home" className="nav-link select">HOME</Link></li>
                             <li className="nav-item"><Link to="/users" className="nav-link select">USERS</Link></li>
+                            <li className="nav-item"><Link to="/sales" className="nav-link select">SALES</Link></li>
                             <li className="nav-item"><Link to="/products" className="nav-link select">PRODUCTS</Link></li>
                             <li className="nav-item"><Link to="/" className="nav-link select">LOGIN</Link></li>
                             <li className="nav-item"><Link to="/" className="nav-link logout">LOGOUT</Link></li>
