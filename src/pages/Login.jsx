@@ -37,7 +37,7 @@ const Login = () => {
           </div>
           <div>
             <button type='submit' className= 'boton' >
-              <Link to='/Home' className= 'btnlink'>Iniciar sesión</Link>
+              <Link to='/' className= 'btnlink'>Iniciar sesión</Link>
             </button>
           </div>
           <div className='divGoogle'>
