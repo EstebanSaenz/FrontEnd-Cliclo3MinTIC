@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/home.css'
+import 'styles/header.css'
 import logo from '../assets/image/logo.png'
 import { Link } from 'react-router-dom';
 
@@ -9,38 +9,33 @@ export class Header extends Component {
     }
     render() {
         return (
-            <div>
-                <ul className="navbar">
-                    <li>
-                        <Link to="/home">
-                            <img src={logo} alt="imagen" className="logo" />
-                        </Link>
-                    </li>
-                    <li>
-                        <button className="botonGenerico mainButton">Nuevo post</button>
-                    </li>
-                    <li>
-                        <div className="buscar">
-                            <input placeholder="Buscar una raza" />
-                            <i className="fas fa-search botonGenerico iconoBusqueda"></i>
-                        </div>
-                    </li>
-                     <li>
-                         <Link to="/users">
-                         <button className="botonGenerico secondaryButton" >Usuarios</button>
-                         </Link>
-                    </li>
-                    <li>
-                    <button 
-                        className="btn btn-outline-danger"
-                        onClick= { this.handleLogout }
-                    >
-                        <i className="fas fa-sign-out-alt"></i>
-                        <span> Salir</span>
+            <nav className="navbar navbar-expand-md flex-row flex-wrap navStyle">
+                <div className="container">
+                    <Link to="/home" className="navbar-brand navLink">
+                        <img width="80" src={logo} alt=""></img>
+                    </Link>
+                    <button className="navbar-toggler buttonCollapse" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+                     <i className="fas fa-bars iconCollapse"></i>
                     </button>
-                    </li>
-                </ul>
-            </div>
+                    <div className="navbar-collapse collapse" id="collapseExample">
+                        <ul className="navbar-nav ms-md-auto">
+                            <li className="nav-item"><Link to="/home" className="nav-link select">HOME</Link></li>
+                            <li className="nav-item"><Link to="/users" className="nav-link select">USERS</Link></li>
+                            <li className="nav-item"><Link to="/sales" className="nav-link select">SALES</Link></li>
+                            <li className="nav-item"><Link to="/products" className="nav-link select">PRODUCTS</Link></li>
+                            <li className="nav-item"><Link to="/" className="nav-link select">LOGIN</Link></li>
+                            <li className="nav-item"><Link to="/" className="nav-link logout">LOGOUT</Link></li>
+                            {/* <li className="nav-item liButton">
+                            <button className="nav-link btn btn-outline-danger button buttonStyle"onClick= { this.handleLogout }>
+                                <i className="fas fa-sign-out-alt"></i>
+                                <span> LOGOUT</span>
+                            </button>
+                            </li> */}
+                        </ul>
+                    </div>
+                 </div>
+            </nav>
+
         )
     }
 }
