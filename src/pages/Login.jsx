@@ -6,13 +6,13 @@ import '../styles/login.css'
 const Login = () => {
   return (
     <div className= 'divPadre'>
-      <div className='contlog'>
+      <div className='divForm'>
         <h3 className='logo'>
           LOGO
         </h3>
         <form className='formulario'>
           <input type='hidden' name='remember' defaultValue='true' />
-          <div className='secdiv'>
+          <div className='divSec'>
             <div>
               <input
                 name='email'
@@ -40,21 +40,7 @@ const Login = () => {
               <Link to='/Home' className= 'btnlink'>Iniciar sesión</Link>
             </button>
           </div>
-
-          <div className='regdiv'>
-            <span>¿No tienes cuenta?</span>
-            <Link to='/'>
-              <span className='regbtn'>Regístrate</span>
-            </Link>
-          </div>
-        </form>
-      </div>
-      <div className='interdiv'>
-        <span className='interspan'>--------------</span>
-        <h4 className='interH'> O </h4>
-        <span className='interspan'>--------------</span>
-      </div>
-      <div className='googlediv'>
+          <div className='divGoogle'>
         <div>
           <button
             type='submit'
@@ -62,11 +48,19 @@ const Login = () => {
           >
             <div className='gglindiv'>
               <img src={Google} alt='Logo Google' className='googleimg' />
-              <span className='gglspan'>Inicia con Google</span>
+              <span className='gglspan'>Iniciar con Google</span>
             </div>
           </button>
         </div>
       </div>
+          <div className='regdiv'>
+            <span className= 'regtext'>Si no tienes cuenta</span>
+            <Link className= 'reglink' to='/'>
+              <span>REGISTRATE</span>
+            </Link>
+          </div>
+        </form>
+      </div>     
     </div>
   );
 };
