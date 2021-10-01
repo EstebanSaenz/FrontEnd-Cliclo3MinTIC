@@ -34,17 +34,17 @@ import 'styles/sales.css';
      };
 
 
-    function filterid({id}) {
-    return id.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
-    };
+    // function filterid({id}) {
+    // return id.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
+    // };
 
-    const filterCliente = ({Cliente}) => {
-        return Cliente.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
-    };
+    // const filterCliente = ({Cliente}) => {
+    //     return Cliente.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
+    // };
 
-    const filterClienteId = ({ClienteId}) => {
-        return ClienteId.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
-    };
+    // const filterClienteId = ({ClienteId}) => {
+    //     return ClienteId.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
+    // };
 
      //   MAPEO PARA AGREGAR NUMERO A CADA VENTA
     ventas.map( (sales,index) => {
@@ -55,6 +55,9 @@ import 'styles/sales.css';
         return (
             <div>
                 <div className="container-fluid">
+                <div className="text-center">
+                        <h1 className="title py-3">GESTION VENTAS</h1>
+                    </div>
                     <div className="row">
                         <div className="col-9 col-md-9 col-sm-2">
                             <div className="input-group">

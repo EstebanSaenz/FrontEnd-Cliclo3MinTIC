@@ -6,9 +6,9 @@ export const Sidebar = () => {
 
     //AGREGAR RUTAS NUEVAS, SU NOMBRE E ICONO PARA EL SIDEBAR
     const routeSidebar = [
-    {ruta:"/admin", nombre:"Admin", icon:"fas fa-hammer"},
-    {ruta:"/admin/users", nombre:"Users", icon:"fas fa-users"},
-    {ruta:"/admin/products", nombre:"Products", icon:"fas fa-shopping-cart"},
+    {ruta:"/admin/users", nombre:"Usuarios", icon:"fas fa-users"},
+    {ruta:"/admin/sales", nombre:"Ventas", icon:"fas fa-shopping-cart"},
+    {ruta:"/admin/products", nombre:"Productos", icon:"fas fa-list"},
     ]
     return (
         <div className='sidebar bg-light'>

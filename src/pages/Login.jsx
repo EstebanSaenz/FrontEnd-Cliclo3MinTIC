@@ -6,7 +6,7 @@ export class Login extends Component {
     // FUNCION PARA LOGUEARSE
     login = () => {
         // console.log('Se hizo click');
-        window.location.href= "./admin"
+        window.location.href= "./admin/users"
       }
       
     render() {

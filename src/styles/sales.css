@@ -1,4 +1,8 @@
-.containerSale {
+.title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+}
+.containerUser {
     padding: 30px;
 }
 .span {
@@ -20,7 +24,7 @@
 }
 
 .buttonTable {
-    background-color:#FEBA0B ;
+    background-color:#0f6dfa;
     color: white;
     border-radius: 10px;
 }
