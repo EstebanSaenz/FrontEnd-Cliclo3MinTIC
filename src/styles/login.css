@@ -20,6 +20,25 @@
   justify-content: center;
 }
 
+.boton {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5%;
+  height: 2.5rem;
+  background-color: #ffd51c;
+  color: black;
+}
+
+.btnlink {
+  text-decoration: none;
+  color: black;  
+}
+
+.btnlink:hover {  
+  text-decoration: none;
+  color: black;  
+}
+
 .contlog {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
@@ -73,5 +92,6 @@
 .googlebtn {
   border-radius: 5%;
   height: 2.5rem;
-  background-color: #d82e1094;
+  background-color: #0e1127b6;
+  color: beige;
 }

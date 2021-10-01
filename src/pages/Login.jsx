@@ -36,10 +36,8 @@ const Login = () => {
             </div>
           </div>
           <div>
-            <button
-              type='submit'
-              className= 'boton' >
-              <Link to='/Home'>Iniciar sesión</Link>
+            <button type='submit' className= 'boton' >
+              <Link to='/Home' className= 'btnlink'>Iniciar sesión</Link>
             </button>
           </div>
 
