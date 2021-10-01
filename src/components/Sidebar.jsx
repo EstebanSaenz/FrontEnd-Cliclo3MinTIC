@@ -14,8 +14,8 @@ export const Sidebar = () => {
         <div className='sidebar bg-light'>
             <ul>
                 {/* SE RENDERIZA CADA UNO DE LOS COMPONENTES DEL SIDEBAR */}
-                {routeSidebar.map((item) => (
-                    <SidebarRoute ruta={item.ruta} nombre={item.nombre} icon={item.icon}></SidebarRoute>
+                {routeSidebar.map((item,index) => (
+                    <SidebarRoute key={index} ruta={item.ruta} nombre={item.nombre} icon={item.icon}></SidebarRoute>
                     )
                 )}
             </ul>

@@ -42,7 +42,7 @@ const NavbarNav = (props) => {
                   Configuraciones
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => {window.location.href= "./login"}}>
+                <DropdownItem onClick={() => {window.location.href= "/login"}}>
                   Cerrar Sesión
                 </DropdownItem>
               </DropdownMenu>
