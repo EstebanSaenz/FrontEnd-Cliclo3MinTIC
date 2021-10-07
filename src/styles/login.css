@@ -124,3 +124,11 @@
   width: 16rem;
   justify-content: center;
 }
+
+.bg-color {
+  background-color: #f9fbfb;
+}
+
+.btn-rounded {
+  border-radius: 30px;
+}
