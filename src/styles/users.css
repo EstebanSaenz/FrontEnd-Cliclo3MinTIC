@@ -46,4 +46,133 @@
     text-align:center;
 }
 
+.buttonAddUser {
+    width: 150px;
+    height: 70px;
+    background-color: #1bb5fc;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    border-radius: 45px;
+}
+
+.buttonAddUser:hover {
+    background-color: #02a6f2;
+    color: white;
+}
+
+.tabla {
+    width: 100%;
+    margin: 10px;
+    overflow-y: scroll;
+  }
+  
+  .tabla td,
+  .tabla th {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .tabla th {
+    background-color: #3e3e3e;
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+  }
+  
+  .tabla tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .tabla tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+
+  .iconEyePencil {
+      color:#3687ff;
+  }
+  .iconEyePencil:hover {
+      color:#0a4eb5;
+  }
+
+
+.iconTrash {
+    color: #e36464;
+}
+.iconTrash:hover {
+    color:#d70d17;
+}
+
+.iconCheck {
+    color: #3df53d
+}
+
+.iconCheck:hover {
+    color: #00b000
+}
+
+.divDialog {
+    padding: 25px 25px 25px 25px;
+}
+
+.divButtonDialog {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.buttonDialog {
+    width: 90px;
+    height: 60px;
+    background-color: #22d222;
+    color:white;
+    border: grey;
+    border-radius: 10px;
+    box-shadow: 2px 2px rgb(187, 187, 187);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 15px 15px 15px 15px;
+}
+
+.buttonDialog:hover {
+    background-color: #00a200;
+    color: white;
+}
+
+.buttonDialogNo {
+    width: 90px;
+    height: 60px;
+    background-color:rgb(243, 6, 6);
+    color:white;
+    border: grey;
+    border-radius: 10px;
+    box-shadow: 2px 2px rgb(187, 187, 187);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 15px 15px 15px 15px;
+}
+.buttonDialogNo:hover {
+    background-color:rgb(193, 3, 3);
+    color:white;
+}
+
+@media (max-width: 900px) {
+    .tableResponsive {
+        display:none
+    }
+    .divCardsTable {
+        display:flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media (min-width: 900px) {
+    .divCardsTable {
+        display:none;
+    }
+}
 

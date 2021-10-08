@@ -1,12 +1,15 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { nanoid } from 'nanoid';
 import React, { useState, useEffect,useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import Tooltip from '@mui/material/Tooltip';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/users.css';
+import { Dialog } from '@mui/material';
 
  export const Users= () => {
 
+    // ESTADOS
     const usuarios = [{id: 1,nombre:'Daniel',apellido: 'Zemanate', identificacion: 19028753, rol:"Administrador", estado:"Autorizado"},
     {id:2,nombre:'Valery',apellido: 'Rivera', identificacion: 12674890, rol:"Vendedor", estado:"Pendiente"},
     {id:3,nombre:'Candy',apellido: 'Rivera', identificacion: 172093865, rol:"Vendedor", estado:"Rechazado"},
@@ -20,20 +23,18 @@ import 'styles/users.css';
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textButton, setTextButton] = useState("Crear Nuevo Usuario");
-    const [iconButton, setIconButton] = useState("fa fa-user-plus")
-    const [users, setUsers] = useState([])
+    const [iconButton, setIconButton] = useState("fa fa-user-plus");
+    const [users, setUsers] = useState([]);
 
-     // FILTRO BUSQUEDA EN TABLA
-     const [searchValue, setSearchValue] = React.useState("");
+    // ESTADO PARA TRAER TODOS LOS USUARIOS BD
+    const [runQuery, setRunQuery] = useState(true);
 
-     const handleChange = event => {
-        setSearchValue(event.target.value);
-      };
- 
-     //  FILTRAR POR NOMBRE
-    //  const filterNames = ({Nombre}) => {
-    //      return Nombre.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
-    //    };
+    //GET TRAER TODOS LOS VEHICULOS MEDIANTE ESTADOS
+      useEffect(() => {
+         if (runQuery) {
+            setRunQuery(false)
+         }
+      }, [runQuery])
 
     //LISTADO USUARIOS REGISTRADOS
     useEffect(() => {
@@ -54,47 +55,53 @@ import 'styles/users.css';
             <div>
                 <div className="containerUser">
                     <div className="text-center">
-                        <h1 className="title py-3">GESTION USUARIOS</h1>
+                        <h1 className="title py-1">GESTION USUARIOS</h1>
                     </div>
-                    <div className="row">
-                        <div className="col-3 col-md-3 mb-3">
-                            <button type="button" className="btn btn-primary btn-block"
-                                onClick={()=> {
-                                    setMostrarTabla(!mostrarTabla);
-                                }} >
-                                <i className={iconButton}></i>{textButton}
-                            </button>
-                        </div>
-                         <div className="col-8 col-md-8">
-                            <div className="input-group">
-                            {/* BARRA BUSQUEDA */}
-                                <input type="text" className="form-control"
-                                    placeholder="Buscar"
-                                    value={searchValue}
-                                    onChange={handleChange}/>
-                                <span className="span input-group-prepend input-group-text">
-                                <i className="fa fa-search"></i></span>
+                    <div className="container">
+                        <div className="row justify-content-md-end">
+                            <div className="col-2 col-md-2 mb-3">
+                                <button type="button" className="btn border border-primary rounded-circle buttonAddUser"
+                                    onClick={()=> {
+                                        setMostrarTabla(!mostrarTabla);
+                                    }} >
+                                    <i className={iconButton}></i>{textButton}
+                                </button>
+                            </div>
+                        </div>   
+                        <div className="row justify-content-md-start">
+                            <div className="col-12 col-md-12">
+                                {mostrarTabla ? (<TableUsers listaUsuarios={users} /> 
+                                ) : (
+                                <FormUsers 
+                                setShowTable={setMostrarTabla} 
+                                setUsers={setUsers}
+                                listaUsuarios={users}/>
+                                )}
+                                <ToastContainer
+                                position="top-center"
+                                autoClose={5000}/>
                             </div>
                         </div>
-                        <div className="col-12 col-md-12">
-                            {mostrarTabla ? (<TableUsers listaUsuarios={users} /> 
-                             ) : (
-                            <FormUsers 
-                            setShowTable={setMostrarTabla} 
-                            setUsers={setUsers}
-                            listaUsuarios={users}/>
-                            )}
-                        <ToastContainer
-                        position="top-center"
-                        autoClose={5000}/>
-                        </div>
-                    </div> 
+                    </div>   
              </div>         
          </div>     
         )
     }
 
 const TableUsers = ({listaUsuarios}) => {
+
+    //FILTRO BUSQUEDA
+    const [search, setSearch] = useState('');
+    const [usersFilters, setUsersFilters] = useState(listaUsuarios);
+  
+    useEffect(() => {
+        setUsersFilters(
+            listaUsuarios.filter((elemento) => {
+          return JSON.stringify(elemento).toLowerCase().includes(search.toLowerCase());
+        })
+      );
+    }, [search, listaUsuarios]);
+
       // MAPEO PARA AGREGAR NUMERO A CADA USUARIO
       listaUsuarios.map( (users,index) => {
          return users.inc = index+1;
@@ -102,65 +109,172 @@ const TableUsers = ({listaUsuarios}) => {
     return(
 
  <>
-      
-    <div className="table-responsive">
-        <table data-toggle="table" className="table table-striped table-hover "
-         data-toolbar="#toolbar" 
-         data-filter-control="true" 
-         data-filter-control-container="#filter">
-            <thead className="tableStyle">
-                <tr>
-                    <th className="thTableId">#</th>
-                    <th className="thTable">Nombre</th>
-                    <th className="thTable">Apellido</th>
-                    <th className="thTable">Identificación</th>
-                    <th className="thTable">Rol</th>
-                    <th className="thTable">Estado</th>
-                    <th className= "thTableAcciones" colSpan="3">Acciones</th>
-                </tr>
-            </thead>
-                {/* <tbody>
-                    {
-                    usuarios.map((users,index) => (
+    <div className="row justify-content-md-start">
+
+        <div className="col-md-4 mb-4">
+            {/* BARRA BUSQUEDA */}
+            <div className="input-group">
+                <input type="text" className="form-control"
+                    placeholder="Buscar..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}/>
+                    <span className="span input-group-prepend input-group-text">
+                <i className="fa fa-search"></i></span>
+            </div>
+        </div>
+        <div className="col-md-12 col-lg-12 tableResponsive">
+            <table className="tabla">
+                <thead>
                     <tr>
-                        <th scope="row">{users.inc}</th>
-                        <td >{users.Nombre}</td>
-                        <td>{users.apellido}</td>
-                        <td>{users.Identificación}</td>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Identificación</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th colSpan="3">Acciones</th>
                     </tr>
-                       ))
-                    }
-                </tbody> */}
-                <tbody>
-                {listaUsuarios.map(item => (
-                    <tr key={item.inc}>
-                        <th scope="row">{item.inc}</th>
-                        <td >{item.nombre}</td>
-                        <td>{item.apellido}</td>
-                        <td>{item.identificacion}</td>
-                        <td>{item.rol}</td>
-                        <td>{item.estado}</td>
-                        <td>
-                            <button type="button" className="btn buttonTable">
-                            <i className="fa fa-eye"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" className="btn buttonTable">
-                            <i className="fas fa-pencil-alt"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" className="btn buttonTableTrash">
-                            <i className="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-        </table>
+                </thead>
+                    <tbody>
+                        {usersFilters.map(item => (
+                        <TableRow key={nanoid()} user={item}/>
+                        ))}
+                    </tbody>
+            </table>
+        </div>
+        {/* CARDS PARA PANTALLAS MOVILES */}
+        <div className='divCardsTable'>
+        {usersFilters.map((item) => {
+          return (
+            <div className="card">
+                <div class="card-body">
+                    <h4 class="card-title">{item.nombre} {item.apellido}</h4>
+                    <p class="card-text"><b>Identificación:</b> {item.identificacion}</p>
+                    <p class="card-text"><b>Rol:</b> {item.rol}</p>
+                    <p class="card-text"><b>Estado:</b> {item.estado}</p>
+                </div>
+            </div>
+          );
+        })}
+      </div>
      </div> 
 </> 
+    )
+}
+
+// FILAS PARA TLA TABLA, MANEJO DE ACCIONES
+const TableRow = ({user}) => {
+    //    ESTADOS
+    const [edit, setEdit] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [infoUser, setInfoUser] =useState({
+        nombre:user.nombre,
+        apellido:user.apellido,
+        identificacion:user.identificacion,
+        rol:user.rol,
+        estado:user.estado,
+    });
+
+    //FUNCIONES
+
+    // ACTUALIZAR USUARIO
+    const updateUser = () => {
+        console.log(infoUser);
+        toast.success('USUARIO EDITADO CON ÉXITO')
+        setEdit(false)
+    }
+
+    //ELIMINAR USUARIO
+    const deleteUser = () => {
+        setOpenDialog(false)
+        console.log(infoUser)
+    }
+    return(
+    <tr>
+        {edit? (
+            <>
+                <td>{user.inc}</td>
+                <td>
+                    <input 
+                        className="form-control" 
+                        type='text' 
+                        defaultValue={infoUser.nombre}
+                        onChange={(e) => setInfoUser({...infoUser, nombre: e.target.value})}/>
+                </td>
+                <td>
+                    <input 
+                    className="form-control" 
+                    type='text' 
+                    defaultValue={infoUser.apellido}
+                    onChange={(e) => setInfoUser({...infoUser, apellido: e.target.value})}/>
+                    </td>
+                <td>
+                    <input 
+                        className="form-control" 
+                        type='text' 
+                        defaultValue={infoUser.identificacion}
+                        onChange={(e) => setInfoUser({...infoUser, identificacion: e.target.value})}/>
+                    </td>
+                <td>
+                    <input 
+                        className="form-control" 
+                        type='text' 
+                        defaultValue={infoUser.rol}
+                        onChange={(e) => setInfoUser({...infoUser, rol: e.target.value})}/>
+                    </td>
+                <td>
+                    <input 
+                        className="form-control" 
+                        type='text' 
+                        defaultValue={infoUser.estado}
+                        onChange={(e) => setInfoUser({...infoUser, estado: e.target.value})}/>
+                </td>
+            </>
+        ):(
+        <>
+            <td>{user.inc}</td>
+            <td >{user.nombre}</td>
+            <td>{user.apellido}</td>
+            <td>{user.identificacion}</td>
+            <td>{user.rol}</td>
+            <td>{user.estado}</td>
+        </>
+        )}
+        <td>
+            <div className = 'd-flex justify-content-around w-100'> 
+
+            {/* <i className="fa fa-eye iconEyePencil"></i> */}
+                {edit? (
+                <>
+                    <Tooltip title='Confirmar Edición' arrow>
+                        <i onClick={() => updateUser()} className="fas fa-check iconCheck"/>
+                    </Tooltip>
+                    <Tooltip title='Cancelar Edición' arrow>
+                    <i onClick={() => setEdit(!edit)} className="fas fa-ban iconEyePencil"></i>
+                    </Tooltip>
+                </>
+                ):(
+                <>
+                    <Tooltip title='Editar Usuario' arrow>
+                        <i onClick={() => setEdit(!edit)} className="fas fa-pencil-alt iconEyePencil"></i>
+                    </Tooltip>
+                    <Tooltip title='Eliminar Usuario' arrow>
+                        <i onClick={() => setOpenDialog(true)} className="fas fa-trash-alt iconTrash"></i>
+                    </Tooltip>
+                </>
+                ) }
+            </div>
+            <Dialog open={openDialog}>
+                <div className='d-flex flex-column divDialog '>
+                    <h2>¿Está seguro de ELIMINAR el usuario?</h2>
+                    <div className='divButtonDialog'>
+                        <button onClick={ ()=> {deleteUser()}} className='btn btn-md buttonDialog'>Sí</button>
+                        <button onClick={() => {setOpenDialog(false)}} className='btn btn-md buttonDialogNo'>No</button>
+                    </div>
+                </div>
+            </Dialog>
+        </td>
+    </tr>
     )
 }
 
@@ -171,15 +285,14 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
     const form = useRef(null);
     const [validated, setValidated] = React.useState('');
 
-    
     const handleSubmit = (event) => {
-        
+        // VALIDACIONES
         const formEvent = event.target;
         if (formEvent.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
           toast.error('Ingrese Todos los campos')
-        } else {
+        } else { 
          // CONTROLAR EL FORM SUBMMIT
         event.preventDefault();
         const newUser={};
