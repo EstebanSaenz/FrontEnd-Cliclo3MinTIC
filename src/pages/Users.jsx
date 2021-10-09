@@ -6,20 +6,10 @@ import Tooltip from '@mui/material/Tooltip';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/users.css';
 import { Dialog } from '@mui/material';
+import {getUsers} from 'utils/api'
+import axios from 'axios';
 
  export const Users= () => {
-
-    // ESTADOS
-    const usuarios = [{id: 1,nombre:'Daniel',apellido: 'Zemanate', identificacion: 19028753, rol:"Administrador", estado:"Autorizado"},
-    {id:2,nombre:'Valery',apellido: 'Rivera', identificacion: 12674890, rol:"Vendedor", estado:"Pendiente"},
-    {id:3,nombre:'Candy',apellido: 'Rivera', identificacion: 172093865, rol:"Vendedor", estado:"Rechazado"},
-    {id:4,nombre:'Anderson',apellido: 'Trujillo', identificacion: 1098276538, rol:"Vendedor", estado:"Autorizado"},
-    {id:5,nombre:'Juliana',apellido: 'Lopez', identificacion: 152793087, rol:"Administrador", estado:"Rechazado"},
-    {id:6,nombre:'Daniel',apellido: 'Zemanate', identificacion: 1061892620, rol:"Vendedor", estado:"Pendiente"},
-    {id:7,nombre:'Valery',apellido: 'Rivera', identificacion: 107628290, rol:"Vendedor", estado:"Rechazado"},
-    {id:8,nombre:'Candy',apellido: 'Rivera', identificacion: 102826382, rol:"Vendedor", estado:"Pendiente"},
-    {id:9,nombre:'Anderson',apellido: 'Trujillo', identificacion: 1092835749, rol:"Administrador", estado:"Autorizado"},
-    {id:10,nombre:'Juliana',apellido: 'Lopez', identificacion: 1061920273, rol:"Vendedor", estado:"Pendiente"}, ];
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textButton, setTextButton] = useState("Crear Nuevo Usuario");
@@ -32,14 +22,16 @@ import { Dialog } from '@mui/material';
     //GET TRAER TODOS LOS VEHICULOS MEDIANTE ESTADOS
       useEffect(() => {
          if (runQuery) {
-            setRunQuery(false)
+            getUsers(setUsers, setRunQuery)
          }
       }, [runQuery])
 
-    //LISTADO USUARIOS REGISTRADOS
+    //USEEFFECT MOSTRAR TABLA
     useEffect(() => {
-        setUsers(usuarios)
-    }, [])
+        if(mostrarTabla) {
+            setRunQuery(true);
+        }   
+    }, [mostrarTabla])
 
     useEffect(() => {
        if (mostrarTabla) {
@@ -70,12 +62,10 @@ import { Dialog } from '@mui/material';
                         </div>   
                         <div className="row justify-content-md-start">
                             <div className="col-12 col-md-12">
-                                {mostrarTabla ? (<TableUsers listaUsuarios={users} /> 
+                                {mostrarTabla ? (<TableUsers listaUsuarios={users} setRunQuery={setRunQuery} /> 
                                 ) : (
                                 <FormUsers 
-                                setShowTable={setMostrarTabla} 
-                                setUsers={setUsers}
-                                listaUsuarios={users}/>
+                                setShowTable={setMostrarTabla}/>
                                 )}
                                 <ToastContainer
                                 position="top-center"
@@ -88,7 +78,7 @@ import { Dialog } from '@mui/material';
         )
     }
 
-const TableUsers = ({listaUsuarios}) => {
+const TableUsers = ({listaUsuarios, setRunQuery}) => {
 
     //FILTRO BUSQUEDA
     const [search, setSearch] = useState('');
@@ -136,9 +126,11 @@ const TableUsers = ({listaUsuarios}) => {
                     </tr>
                 </thead>
                     <tbody>
-                        {usersFilters.map(item => (
-                        <TableRow key={nanoid()} user={item}/>
-                        ))}
+                        {usersFilters.map(item => {
+                            return (
+                        <TableRow key={nanoid()} user={item} setRunQuery={setRunQuery}/>
+                            );
+                        })}
                     </tbody>
             </table>
         </div>
@@ -146,12 +138,12 @@ const TableUsers = ({listaUsuarios}) => {
         <div className='divCardsTable'>
         {usersFilters.map((item) => {
           return (
-            <div className="card">
-                <div class="card-body">
-                    <h4 class="card-title">{item.nombre} {item.apellido}</h4>
-                    <p class="card-text"><b>Identificación:</b> {item.identificacion}</p>
-                    <p class="card-text"><b>Rol:</b> {item.rol}</p>
-                    <p class="card-text"><b>Estado:</b> {item.estado}</p>
+            <div className="card" key={nanoid()}>
+                <div className="card-body">
+                    <h4 className="card-title">{item.name} {item.lastname}</h4>
+                    <p className="card-text"><b>Identificación:</b> {item.identification}</p>
+                    <p className="card-text"><b>Rol:</b> {item.rol}</p>
+                    <p className="card-text"><b>Estado:</b> {item.state}</p>
                 </div>
             </div>
           );
@@ -163,31 +155,69 @@ const TableUsers = ({listaUsuarios}) => {
 }
 
 // FILAS PARA TLA TABLA, MANEJO DE ACCIONES
-const TableRow = ({user}) => {
+const TableRow = ({user, setRunQuery}) => {
     //    ESTADOS
     const [edit, setEdit] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [infoUser, setInfoUser] =useState({
-        nombre:user.nombre,
-        apellido:user.apellido,
-        identificacion:user.identificacion,
+        // _id: user._id,
+        name:user.name,
+        lastname:user.lastname,
+        identification:user.identification,
         rol:user.rol,
-        estado:user.estado,
+        state:user.state,
     });
 
     //FUNCIONES
 
     // ACTUALIZAR USUARIO
-    const updateUser = () => {
-        console.log(infoUser);
-        toast.success('USUARIO EDITADO CON ÉXITO')
-        setEdit(false)
+    const updateUser = async () => {
+        //enviar la info al backend
+    const options = {
+        method: 'PATCH',
+        // url: `http://localhost:5000/users${user._id}/`,
+        url: `http://localhost:5000/users/${user._id}`,
+        headers: { 'Content-Type': 'application/json' },
+        data: { ...infoUser },
+      };
+  
+      await axios
+        .request(options)
+        .then(function (response) {
+        //   console.log(response.data);
+          toast.success('USUARIO EDITADO CON ÉXITO')
+          setEdit(false);
+          setRunQuery(true)
+        })
+        .catch(function (error) {
+          toast.error('Error modificando el usuario');
+          console.error(error);
+        });
+        
     }
 
     //ELIMINAR USUARIO
-    const deleteUser = () => {
-        setOpenDialog(false)
-        console.log(infoUser)
+    const deleteUser = async() => {
+        const options = {
+            method: 'DELETE',
+            url: `http://localhost:5000/users/${user._id}`,
+            headers: { 'Content-Type': 'application/json' },
+            data: { id: user._id },
+          };
+      
+          await axios
+            .request(options)
+            .then(function (response) {
+            //   console.log(response.data);
+              toast.success('Usuario eliminado con éxito');
+              setRunQuery(true)
+              setOpenDialog(false)
+            })
+            .catch(function (error) {
+              console.error(error);
+              toast.error('Error eliminando el usuario');
+            });
+        
     }
     return(
     <tr>
@@ -198,22 +228,22 @@ const TableRow = ({user}) => {
                     <input 
                         className="form-control" 
                         type='text' 
-                        defaultValue={infoUser.nombre}
-                        onChange={(e) => setInfoUser({...infoUser, nombre: e.target.value})}/>
+                        defaultValue={infoUser.name}
+                        onChange={(e) => setInfoUser({...infoUser, name: e.target.value})}/>
                 </td>
                 <td>
                     <input 
                     className="form-control" 
                     type='text' 
-                    defaultValue={infoUser.apellido}
-                    onChange={(e) => setInfoUser({...infoUser, apellido: e.target.value})}/>
+                    defaultValue={infoUser.lastname}
+                    onChange={(e) => setInfoUser({...infoUser, lastname: e.target.value})}/>
                     </td>
                 <td>
                     <input 
                         className="form-control" 
                         type='text' 
-                        defaultValue={infoUser.identificacion}
-                        onChange={(e) => setInfoUser({...infoUser, identificacion: e.target.value})}/>
+                        defaultValue={infoUser.identification}
+                        onChange={(e) => setInfoUser({...infoUser, identification: e.target.value})}/>
                     </td>
                 <td>
                     <input 
@@ -226,18 +256,18 @@ const TableRow = ({user}) => {
                     <input 
                         className="form-control" 
                         type='text' 
-                        defaultValue={infoUser.estado}
-                        onChange={(e) => setInfoUser({...infoUser, estado: e.target.value})}/>
+                        defaultValue={infoUser.state}
+                        onChange={(e) => setInfoUser({...infoUser, state: e.target.value})}/>
                 </td>
             </>
         ):(
         <>
             <td>{user.inc}</td>
-            <td >{user.nombre}</td>
-            <td>{user.apellido}</td>
-            <td>{user.identificacion}</td>
+            <td >{user.name}</td>
+            <td>{user.lastname}</td>
+            <td>{user.identification}</td>
             <td>{user.rol}</td>
-            <td>{user.estado}</td>
+            <td>{user.state}</td>
         </>
         )}
         <td>
@@ -279,13 +309,16 @@ const TableRow = ({user}) => {
 }
 
 // FORMULARIO CREACION NUEVO USUARIO
-const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
+const FormUsers =({setShowTable}) => {
 
-    //VALIDACIONES FORMULARIOS
-    const form = useRef(null);
+    //ESTADOS 
     const [validated, setValidated] = React.useState('');
 
-    const handleSubmit = (event) => {
+    //obtener formulario mediante ref
+    const form = useRef(null);
+
+    const  handleSubmit = async (event) => {
+        
         // VALIDACIONES
         const formEvent = event.target;
         if (formEvent.checkValidity() === false) {
@@ -293,20 +326,41 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
           event.stopPropagation();
           toast.error('Ingrese Todos los campos')
         } else { 
-         // CONTROLAR EL FORM SUBMMIT
+
+        // CONTROLAR EL FORM SUBMMIT
         event.preventDefault();
         const newUser={};
+
         // OBTENER DATOS DE FORMULARIO
         const fd = new FormData(form.current)
+
         //RECOREER CADA UNO DE LOS VALORES y AGREGAR AL NUEVOUSUARIO QUE CREAMOS newUser={}
         fd.forEach((value,key) => {
-            // console.log(key,value)
             newUser[key]= value; 
         })
+
+        //ENVIAR AL BACKEND
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/users',
+            headers: { 'Content-Type': 'application/json' },
+            data: { name: newUser.name, lastname: newUser.lastname, identification: newUser.identification, rol:newUser.rol,state:newUser.state },
+          };
+      
+          await axios
+            .request(options)
+            .then(function (response) {
+            //   console.log(response.data);
+              toast.success('Usuario agregado con éxito');
+            })
+            .catch(function (error) {
+              console.error(error);
+              toast.error('Error creando un usuario');
+            });
+
         // console.log(newUser)
         setShowTable(true);
-        toast.success('USUARIO SE GUARDO CON ÉXITO');
-        setUsers([...listaUsuarios, newUser])
+        // setUsers([...listaUsuarios, newUser])
         }
         setValidated("was-validated");
       };
@@ -315,8 +369,8 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
         <div className="col-12 col-md-12 col-lg-12">
             <form ref={form} className={`${validated} row g-3 needs-validation`} onSubmit={handleSubmit} noValidate>
                 <div className="col-md-6">
-                    <label htmlFor="nombre" className="form-label">Nombre</label>
-                    <input type="text" className="form-control" name='nombre' placeholder="Pepito" required/>
+                    <label htmlFor="name" className="form-label">Nombre</label>
+                    <input type="text" className="form-control" name='name' placeholder="Pepito" required/>
                     <div className="valid-feedback">
                     Correcto!
                     </div>
@@ -325,8 +379,8 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="apellido" className="form-label">Apellido</label>
-                    <input type="text" name='apellido' className="form-control" placeholder="Perez"  required/>
+                    <label htmlFor="lastname" className="form-label">Apellido</label>
+                    <input type="text" name='lastname' className="form-control" placeholder="Perez"  required/>
                     <div className="valid-feedback">
                     Correcto!
                     </div>
@@ -335,9 +389,9 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="identificación" className="form-label">Identificación</label>
+                    <label htmlFor="identification" className="form-label">Identificación</label>
                     <div className="input-group has-validation">
-                    <input type="text" name='identificacion' className="form-control" placeholder="12345678" required/>
+                    <input type="text" name='identification' className="form-control" placeholder="12345678" required/>
                     <div className="valid-feedback">
                     Correcto!
                     </div>
@@ -347,7 +401,7 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="validationCustom03" className="form-label">Rol</label>
+                    <label htmlFor="rol" className="form-label">Rol</label>
                     {/* <input type="text" className="form-control" id="rol" required/> */}
                     <select className="form-control form-select" name="rol" defaultValue={0} required >
                         <option disabled value={0}>Seleccione una opción</option>
@@ -362,8 +416,8 @@ const FormUsers =({setShowTable, listaUsuarios, setUsers}) => {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="validationCustom05" className="form-label">Estado</label>
-                    <input type="text" name='estado' className="form-control" placeholder="Inactivo" required/>
+                    <label htmlFor="state" className="form-label">Estado</label>
+                    <input type="text" name='state' className="form-control" placeholder="Inactivo" required/>
                     <div className="valid-feedback">
                     Correcto!
                     </div>
