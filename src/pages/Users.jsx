@@ -246,18 +246,34 @@ const TableRow = ({user, setRunQuery}) => {
                         onChange={(e) => setInfoUser({...infoUser, identification: e.target.value})}/>
                     </td>
                 <td>
-                    <input 
+                    <select className="form-control form-select" name="rol"  
+                        defaultValue={infoUser.rol}
+                        onChange={(e) => setInfoUser({...infoUser, rol: e.target.value})} required >
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option>VENDEDOR</option>
+                        <option>ADMIN</option>
+                    </select>
+                    {/* <input 
                         className="form-control" 
                         type='text' 
                         defaultValue={infoUser.rol}
-                        onChange={(e) => setInfoUser({...infoUser, rol: e.target.value})}/>
+                        onChange={(e) => setInfoUser({...infoUser, rol: e.target.value})}/> */}
                     </td>
                 <td>
-                    <input 
+                    <select className="form-control form-select" 
+                            name="state" 
+                            defaultValue={infoUser.state}
+                            onChange={(e) => setInfoUser({...infoUser, state: e.target.value})} required >
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option>Pendiente</option>
+                        <option>Autorizado</option>
+                        <option>No Autorizado</option>
+                    </select>
+                    {/* <input 
                         className="form-control" 
                         type='text' 
                         defaultValue={infoUser.state}
-                        onChange={(e) => setInfoUser({...infoUser, state: e.target.value})}/>
+                        onChange={(e) => setInfoUser({...infoUser, state: e.target.value})}/> */}
                 </td>
             </>
         ):(
@@ -403,10 +419,10 @@ const FormUsers =({setShowTable}) => {
                 <div className="col-md-6">
                     <label htmlFor="rol" className="form-label">Rol</label>
                     {/* <input type="text" className="form-control" id="rol" required/> */}
-                    <select className="form-control form-select" name="rol" defaultValue={0} required >
-                        <option disabled value={0}>Seleccione una opción</option>
-                        <option>Vendedor</option>
-                        <option>Administrador</option>
+                    <select className="form-control form-select" name="rol" required >
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option>VENDEDOR</option>
+                        <option>ADMIN</option>
                     </select>
                     <div className="invalid-feedback">
                     <div className="valid-feedback">
@@ -417,12 +433,17 @@ const FormUsers =({setShowTable}) => {
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="state" className="form-label">Estado</label>
-                    <input type="text" name='state' className="form-control" placeholder="Inactivo" required/>
+                    <select className="form-control form-select" name="state" required >
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option>Pendiente</option>
+                        <option>Autorizado</option>
+                        <option>No Autorizado</option>
+                    </select>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca un Estado para el Usuario.
+                     Seleccione un Estado para el Usuario.
                     </div>
                 </div>
                 <div className="col-12">
