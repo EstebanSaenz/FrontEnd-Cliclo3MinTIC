@@ -28,97 +28,102 @@ export const FormSales =() => {
         <div className="col-8 col-md-8 col-lg-8">
             <form className={`${validated} row g-3 needs-validation`} noValidate onSubmit={handleSubmit}>
                 <div className="col-md-6">
-                    <label htmlFor="id_venta" className="form-label">Identificacion de Venta</label>
-                    <input type="text" className="form-control" id="id_venta" placeholder="1" required/>
-                    <div className="valid-feedback">
-                    Correcto!
-                    </div>
-                    <div className="invalid-feedback">
-                        Introduzca el id de la venta.
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="valor" className="form-label">Valor</label>
-                    <input type="text" className="form-control" id="valor"  required/>
-                    <div className="valid-feedback">
-                    Correcto!
-                    </div>
-                    <div className="invalid-feedback">
-                        Introduzca el valor de la venta.
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="id_producto" className="form-label">Identificacion de Producto</label>
+                    <label htmlFor="id_product" className="form-label">Identificacion de Producto</label>
                     <div className="input-group has-validation">
-                    <input type="text" className="form-control" id="id_producto" required/>
+                    <input type="text" className="form-control" id="id_product" required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                        Introduzca la identificación de productos.
+                        Introduzca el id del producto.
                     </div>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="unidades_productos" className="form-label">Cantidad de unidades</label>
-                    <input type="text" className="form-control" id="unidades<_productos" required/>
+                    <label htmlFor="quantityProduct" className="form-label">Cantidad</label>
+                    <input type="text" className="form-control" id="quantityProduct" required/>
                     <div className="invalid-feedback">
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
-                    Introduzca la cantidad de unidades de productos.
+                        Introduzca el numero de productos. 
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="precio_unitario" className="form-label">Precio Unitario</label>
-                    <input type="text" className="form-control" id="precio_unitario" required/>
+                    <label htmlFor="priceProduct" className="form-label">Precio Unitario</label>
+                    <input type="text" className="form-control" id="priceProduct" required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca el precio unitario del producto.
+                        Introduzca el precio unitario del producto.
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="fecha" className="form-label">Fecha</label>
-                    <input type="text" className="form-control" id="fecha" required/>
+                    <label htmlFor="saleValue" className="form-label">Valor Total Venta</label>
+                    <input type="number" className="form-control" id="saleValue"  required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca la fecha.
+                        Introduzca el valor total de la venta.
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="cliente" className="form-label">Cliente</label>
-                    <input type="text" className="form-control" id="cliente" required/>
+                    <label htmlFor="date" className="form-label">Fecha</label>
+                    <input type="date" className="form-control" id="date" required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca el nombre del cliente.
+                        Seleccione la fecha.
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <label htmlFor="clientName" className="form-label">Nombre del Cliente</label>
+                    <input type="text" className="form-control" id="clientName" required/>
+                    <div className="valid-feedback">
+                        Correcto!
+                    </div>
+                    <div className="invalid-feedback">
+                        Introduzca el nombre del cliente.
                     </div>
                 </div> 
                 <div className="col-md-6">
-                    <label htmlFor="cliente_id" className="form-label">Identificacion del Cliente</label>
-                    <input type="text" className="form-control" id="cliente_id" required/>
+                    <label htmlFor="id_client" className="form-label">Identificacion del Cliente</label>
+                    <input type="text" className="form-control" id="id_client" required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca la identificación del cliente.
+                        Introduzca la identificación del cliente.
                     </div>
                 </div> 
                 <div className="col-md-6">
-                    <label htmlFor="vendedor" className="form-label">Vendedor</label>
-                    <input type="text" className="form-control" id="vendedor" required/>
+                    <label htmlFor="seller" className="form-label">Vendedor</label>
+                    <input type="text" className="form-control" id="seller" required/>
                     <div className="valid-feedback">
-                    Correcto!
+                        Correcto!
                     </div>
                     <div className="invalid-feedback">
-                    Introduzca el nombre del vendedor.
+                        Introduzca el nombre del vendedor.
                     </div>
-                </div>           
+                </div> 
+                <div className="col-md-6">
+                    <label htmlFor="state" className="form-label">Estado</label>
+                    <select className="form-control form-select" name="state" required >
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option>En Proceso</option>
+                        <option>Cancelada</option>
+                        <option>Entregada</option>
+                    </select>
+                    <div className="invalid-feedback">
+                        <div className="valid-feedback">
+                            Correcto!
+                        </div>
+                        Seleccione el estado de la venta.
+                    </div>
+                </div>          
                 <div className="col-12">
                     <button className="btn btn-primary" type="submit">Guardar</button>
                 </div>
