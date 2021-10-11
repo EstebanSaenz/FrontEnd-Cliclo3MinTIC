@@ -6,8 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/users.css';
 import { Dialog } from '@mui/material';
-import {getUsers} from 'utils/api'
-import axios from 'axios';
+import {getUsers, createUser, updateUser, deleteUser} from 'utils/api/users'
 
  export const Users= () => {
 
@@ -22,11 +21,21 @@ import axios from 'axios';
     //GET TRAER TODOS LOS VEHICULOS MEDIANTE ESTADOS
       useEffect(() => {
          if (runQuery) {
-            getUsers(setUsers, setRunQuery)
+            getUsers(
+                (response) => {
+                //   console.log('la respuesta que se recibio fue', response);
+                  setUsers(response.data);
+                  setRunQuery(false)
+                },
+                (error) => {
+                  console.error('Salio un error:', error);
+                }
+              );
+
          }
       }, [runQuery])
 
-    //USEEFFECT MOSTRAR TABLA
+    //USE EFFECT MOSTRAR TABLA
     useEffect(() => {
         if(mostrarTabla) {
             setRunQuery(true);
@@ -171,53 +180,39 @@ const TableRow = ({user, setRunQuery}) => {
     //FUNCIONES
 
     // ACTUALIZAR USUARIO
-    const updateUser = async () => {
-        //enviar la info al backend
-    const options = {
-        method: 'PATCH',
-        // url: `http://localhost:5000/users${user._id}/`,
-        url: `http://localhost:5000/users/${user._id}`,
-        headers: { 'Content-Type': 'application/json' },
-        data: { ...infoUser },
-      };
-  
-      await axios
-        .request(options)
-        .then(function (response) {
-        //   console.log(response.data);
-          toast.success('USUARIO EDITADO CON ÉXITO')
-          setEdit(false);
-          setRunQuery(true)
-        })
-        .catch(function (error) {
-          toast.error('Error modificando el usuario');
-          console.error(error);
-        });
-        
+    const userUpdate = async () => {
+     //enviar la info al backend
+        await updateUser(
+            user._id,
+            infoUser,
+            (response) => {
+                // console.log(response.data)
+                toast.success('USUARIO EDITADO CON ÉXITO')
+                setEdit(false);
+                setRunQuery(true)
+            },
+            (error) => {
+                toast.error('Error modificando el usuario');
+                console.error(error);
+            }
+        );
     }
 
-    //ELIMINAR USUARIO
-    const deleteUser = async() => {
-        const options = {
-            method: 'DELETE',
-            url: `http://localhost:5000/users/${user._id}`,
-            headers: { 'Content-Type': 'application/json' },
-            data: { id: user._id },
-          };
-      
-          await axios
-            .request(options)
-            .then(function (response) {
-            //   console.log(response.data);
-              toast.success('Usuario eliminado con éxito');
-              setRunQuery(true)
-              setOpenDialog(false)
-            })
-            .catch(function (error) {
-              console.error(error);
-              toast.error('Error eliminando el usuario');
-            });
-        
+    //ELIMINAR USUARIO BASE DE DATOS
+    const userDelete = async() => {
+
+        await deleteUser(
+            user._id,
+            (response) => {//   console.log(response.data);
+                toast.success('Usuario eliminado con éxito');
+                setRunQuery(true)
+                setOpenDialog(false)
+            },
+            (error) => {   
+                console.error(error);
+                toast.error('Error eliminando el usuario');
+            }
+        );
     }
     return(
     <tr>
@@ -249,7 +244,7 @@ const TableRow = ({user, setRunQuery}) => {
                     <select className="form-control form-select" name="rol"  
                         defaultValue={infoUser.rol}
                         onChange={(e) => setInfoUser({...infoUser, rol: e.target.value})} required >
-                        <option selected disabled value="">Seleccione una opción</option>
+                        <option disabled value="">Seleccione una opción</option>
                         <option>VENDEDOR</option>
                         <option>ADMIN</option>
                     </select>
@@ -264,16 +259,11 @@ const TableRow = ({user, setRunQuery}) => {
                             name="state" 
                             defaultValue={infoUser.state}
                             onChange={(e) => setInfoUser({...infoUser, state: e.target.value})} required >
-                        <option selected disabled value="">Seleccione una opción</option>
+                        <option disabled value="">Seleccione una opción</option>
                         <option>Pendiente</option>
                         <option>Autorizado</option>
                         <option>No Autorizado</option>
                     </select>
-                    {/* <input 
-                        className="form-control" 
-                        type='text' 
-                        defaultValue={infoUser.state}
-                        onChange={(e) => setInfoUser({...infoUser, state: e.target.value})}/> */}
                 </td>
             </>
         ):(
@@ -293,7 +283,7 @@ const TableRow = ({user, setRunQuery}) => {
                 {edit? (
                 <>
                     <Tooltip title='Confirmar Edición' arrow>
-                        <i onClick={() => updateUser()} className="fas fa-check iconCheck"/>
+                        <i onClick={() => userUpdate()} className="fas fa-check iconCheck"/>
                     </Tooltip>
                     <Tooltip title='Cancelar Edición' arrow>
                     <i onClick={() => setEdit(!edit)} className="fas fa-ban iconEyePencil"></i>
@@ -314,7 +304,7 @@ const TableRow = ({user, setRunQuery}) => {
                 <div className='d-flex flex-column divDialog '>
                     <h2>¿Está seguro de ELIMINAR el usuario?</h2>
                     <div className='divButtonDialog'>
-                        <button onClick={ ()=> {deleteUser()}} className='btn btn-md buttonDialog'>Sí</button>
+                        <button onClick={ ()=> {userDelete()}} className='btn btn-md buttonDialog'>Sí</button>
                         <button onClick={() => {setOpenDialog(false)}} className='btn btn-md buttonDialogNo'>No</button>
                     </div>
                 </div>
@@ -356,26 +346,20 @@ const FormUsers =({setShowTable}) => {
         })
 
         //ENVIAR AL BACKEND
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:5000/users',
-            headers: { 'Content-Type': 'application/json' },
-            data: { name: newUser.name, lastname: newUser.lastname, identification: newUser.identification, rol:newUser.rol,state:newUser.state },
-          };
-      
-          await axios
-            .request(options)
-            .then(function (response) {
-            //   console.log(response.data);
+        await createUser(
+             newUser
+            ,
+            (response) => {
+              console.log(response.data);
+              setShowTable(true);
               toast.success('Usuario agregado con éxito');
-            })
-            .catch(function (error) {
+            },
+            (error) => {
               console.error(error);
               toast.error('Error creando un usuario');
-            });
-
+            }
+          );
         // console.log(newUser)
-        setShowTable(true);
         // setUsers([...listaUsuarios, newUser])
         }
         setValidated("was-validated");
@@ -419,8 +403,8 @@ const FormUsers =({setShowTable}) => {
                 <div className="col-md-6">
                     <label htmlFor="rol" className="form-label">Rol</label>
                     {/* <input type="text" className="form-control" id="rol" required/> */}
-                    <select className="form-control form-select" name="rol" required >
-                        <option selected disabled value="">Seleccione una opción</option>
+                    <select className="form-control form-select" name="rol" defaultValue={''} required >
+                        <option disabled value="">Seleccione una opción</option>
                         <option>VENDEDOR</option>
                         <option>ADMIN</option>
                     </select>
@@ -433,8 +417,8 @@ const FormUsers =({setShowTable}) => {
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="state" className="form-label">Estado</label>
-                    <select className="form-control form-select" name="state" required >
-                        <option selected disabled value="">Seleccione una opción</option>
+                    <select className="form-control form-select" name="state" defaultValue={''} required >
+                        <option disabled value="">Seleccione una opción</option>
                         <option>Pendiente</option>
                         <option>Autorizado</option>
                         <option>No Autorizado</option>
